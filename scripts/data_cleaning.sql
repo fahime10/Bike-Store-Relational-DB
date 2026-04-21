@@ -50,7 +50,7 @@ WITH CTE AS (
 DELETE FROM CTE WHERE rn > 1;
 -- Customer duplicates removed
 
--- Identify if there are nulls or invalida data
+-- Identify if there are nulls or invalid data
 SELECT * FROM customers
 WHERE first_name IS NULL
 	OR last_name IS NULL
@@ -135,8 +135,16 @@ WHERE list_price <= 0 OR
       list_price > 12000;
 
 DELETE FROM products
-WHERE list_price <= 0 OR
+WHERE list_price IS NULL OR
+	  list_price <= 0 OR
 	  list_price > 12000;
+
+
+SELECT * FROM products
+WHERE product_name IS NULL;
+
+DELETE FROM products
+WHERE product_name IS NULL;
 
 -- Staff table
 -- Identify any duplicates and outliers (phone length)
