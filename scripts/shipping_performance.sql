@@ -12,10 +12,6 @@ FROM orders o
 JOIN stores st ON st.store_id = o.store_id
 GROUP BY st.store_name;
 
--- Baldwin and Rowlett have an average of 1 day for when the order is fully processed (meaning it includes the time
--- of the order and shipping date).
--- Santa Cruz has an average of 2 days instead.
-
 
 -- Find out if there are any late processing
 SELECT 
@@ -41,9 +37,6 @@ SELECT
 	ROUND(CAST((late_completed_orders + overdue_still_processing) * 100.0 AS FLOAT) / NULLIF((orders_completed + late_completed_orders + overdue_still_processing), 0), 2) AS failure_rate
 FROM shipping_performance_snapshot
 ORDER BY failure_rate;
-
--- The results show that Santa Cruz has nearly half their orders either shipped late or currently stuck in the warehouse pas their deadline.
--- Rowlett has a failure rate of 32.26%, and Baldwin has 34.94% (just over a third of unhappy customers).
 
 
 -- Are there any particular products that could possibly cause the delay?

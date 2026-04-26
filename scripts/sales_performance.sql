@@ -2,7 +2,7 @@
 
 USE BikeStoreDB;
 
-SELECT p.product_id, p.product_name, b.brand_name, p.list_price, st.store_name,
+SELECT p.product_id, p.product_name, b.brand_name, p.list_price,
 	   COALESCE(SUM(CAST(oi.quantity AS INT)), 0) AS total_units_sold,
 	   COALESCE(ROUND(SUM(CAST(oi.quantity AS INT) * oi.list_price * (1 - oi.discount)), 2), 0) AS total_revenue
 INTO sales_performance_snapshot

@@ -12,6 +12,7 @@ ORDER BY total_purchases DESC;
 WITH CustomerTraffic AS (
 	SELECT customer_id, store_id, COUNT(order_id) as order_count
 	FROM orders
+	WHERE order_status = 4
 	GROUP BY customer_id, store_id
 )
 SELECT store_id, customer_id, order_count,
@@ -37,17 +38,12 @@ GROUP BY st.store_name, ls.loyalty_status, ls.store_id;
 
 SELECT * FROM customer_retention;
 
--- Baldwin has a higher percentage of one-time customers (94.11%), which could indicate that they do not have a good customer 
--- retention method in place, however, it is still leading in terms of volume of customers.
--- Rowlett has slightly more customers that have purchased more one product (13.38 % vs Baldwin's 5.89%).
--- Santa Cruz has the highest loyal customer base (18.18%), however, its volume is rather low compared to Baldwin (286 total 
--- customers against Baldwin's 1,019 total customers).
 
-
--- Customer loyalty buckets can be further segmented
+-- Customer loyalty buckets further segmented
 WITH CustomerTrafficAdvanced AS (
 	SELECT customer_id, store_id, COUNT(order_id) AS order_count
 	FROM orders
+	WHERE order_status = 4
 	GROUP BY customer_id, store_id
 )
 SELECT store_id, customer_id, order_count,
